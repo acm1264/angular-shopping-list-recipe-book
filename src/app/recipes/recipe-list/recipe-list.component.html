@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-xs-12">
-        <button class="btn btn-success">New Recipe</button>
+        <button 
+            class="btn btn-success"
+            [routerLink]="['new']">New Recipe</button>
     </div>
 </div>
 
@@ -8,9 +10,13 @@
 
 <div class="row">
     <div class="col-xs-12">
+        <!-- need to loop through the recipes as well as the indexes. Wiht ngFor, "index" is a key word that gives
+        the index of the array, so we can assign a variable (i) to be be equal to the index to turn this 
+        "foreach" style loop into a combo of foreach and a traditional "indexing" for loop -->
         <app-recipe-item 
-            *ngFor="let singleRecipe of recipes" 
-            [recipe]="singleRecipe">
+            *ngFor="let singleRecipe of recipes; let i = index" 
+            [recipe]="singleRecipe"
+            [index]="i">
         </app-recipe-item>
     </div>
 </div>

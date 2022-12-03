@@ -3,14 +3,8 @@
         <app-recipe-list></app-recipe-list>
     </div>
     <div class="col-md-7">
-        <!-- display the recipe that was selecteded (if "selectedRecipe" has no value, it will 
-                    return false (applies to any custom types)) -->
-        <app-recipe-detail
-            *ngIf="selectedRecipe; else infoText"
-            [recipeDisplayed]="selectedRecipe">
-        </app-recipe-detail>
-        <ng-template #infoText>
-            <p>Please select a recipe!</p>
-        </ng-template>
+        <!-- display the recipe that was selecteded (else the route will display the placeholder/default
+            //component of recipe not selected) -->
+        <router-outlet></router-outlet>
     </div>
 </div>
