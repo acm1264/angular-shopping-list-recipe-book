@@ -6,10 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  optionBeingDisplayed = "recipe"
-  
-  onNavigate(option: string)
-  {
-    this.optionBeingDisplayed = option;
-  }
+
 }

@@ -1,9 +1,10 @@
-import { EventEmitter } from '@angular/core';
+import {Subject} from 'rxjs'
+
 import { Ingredient } from "../shared/ingredient.model";
 
 export class ShoppingListService
 {
-    ingredientsChanged = new EventEmitter<Ingredient[]>();
+    ingredientsChanged = new Subject<Ingredient[]>();
 
     private ingredients: Ingredient[] = [
     new Ingredient("Apples", 5),
@@ -18,7 +19,7 @@ export class ShoppingListService
     addIngredient(ingredient: Ingredient)
     {
         this.ingredients.push(ingredient)
-        this.ingredientsChanged.emit(this.ingredients.slice())
+        this.ingredientsChanged.next(this.ingredients.slice())
     }
 
     //variant to add an array of ingredinets
@@ -33,6 +34,6 @@ export class ShoppingListService
         //the "spread" operator (...) allows us to emit all of the elements of one array into another
         //can't just insert the array directly because it would become multi-dimensional
         this.ingredients.push(...newIngredients)
-        this.ingredientsChanged.emit(this.ingredients.slice())
+        this.ingredientsChanged.next(this.ingredients.slice())
     }
 }
