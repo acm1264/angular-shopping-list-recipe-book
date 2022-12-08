@@ -1,10 +1,13 @@
 
+import { Subject } from "rxjs";
 import { Ingredient } from "../shared/ingredient.model";
 import { Recipe } from "./recipe.model";
 
 //service to store/manage recipes for easy shared access
 export class RecipeService
 {
+    recipesChanged = new Subject<Recipe[]>()
+
     //defining this variable's type to be an array of our custom "Recipe" class
     private recipes: Recipe[] = [
         new Recipe(
@@ -34,5 +37,31 @@ export class RecipeService
     getRecipe(index: number)
     {
         return this.recipes[index];
+    }
+
+    addRecipe(recipe: Recipe)
+    {
+        this.recipes.push(recipe);
+        this.triggerRecipeChangedEvent();
+    }
+
+    updateRecipe(index: number, recipe: Recipe)
+    {
+        this.recipes[index] = recipe;
+        this.recipesChanged.next(this.recipes.slice());
+        this.triggerRecipeChangedEvent();
+    }
+
+    deleteRecipe(index: number)
+    {
+        this.recipes.splice(index, 1);
+        this.triggerRecipeChangedEvent();
+    }
+
+    triggerRecipeChangedEvent()
+    {
+        //must trigger event ot notify other parts of code that the recipes were changed
+        //since a copy of the recipes array is displayed in those components, not the original,
+        this.recipesChanged.next(this.recipes.slice());
     }
 }

@@ -26,4 +26,11 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ingredientsChangeSub.unsubscribe();
   }
+
+  //when click on an item to edit, update the "Subject" in the shopping list service 
+  //to show the next value to start editting is the index of the item we just clicked
+  onEditItem(index: number)
+  {
+    this.shoppingListService.startedEditing.next(index);
+  }
 }
